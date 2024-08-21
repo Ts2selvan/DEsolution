@@ -14,6 +14,7 @@
 
         public string MobileNumber { get; set; } = null!;
 
-        public string Role { get; set; } = null!;
+        public int RoleId { get; set; }
+        public string Role { get; set; }
     }
 }

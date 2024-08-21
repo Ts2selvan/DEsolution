@@ -39,7 +39,9 @@ namespace DEApp.Services
                     var loggedinUser = new UserDTO
                     {
                         UserName = user.UserName,
-                        Token = _tokenSevice.GenerateToken(user.UserName)
+                        Token = _tokenSevice.GenerateToken(user.UserName),
+                        RoleId=user.RoleId,
+
                     };
                     return loggedinUser;
                 }

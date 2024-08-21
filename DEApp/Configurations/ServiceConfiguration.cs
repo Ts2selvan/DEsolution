@@ -30,6 +30,7 @@ namespace DEApp.Configuration
             //ProfileSettings
             services.AddScoped<IProfilesettingService, ProfilesettingService>();
             services.AddScoped<IProfilesettingRepository<int, ProfileSetting>, ProfilesettingRepository>();
+            services.AddScoped<IRoleRepository<string, Role>, RoleRepository>();
 
 
 

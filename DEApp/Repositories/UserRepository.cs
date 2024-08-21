@@ -48,5 +48,20 @@ namespace DEApp.Repositories
             _context.SaveChanges();
             return item;
         }
+
+        public User UpdateRoleId(int roleId, string UserName)
+        {
+            
+            var user = _context.Users.SingleOrDefault(u => u.UserName == UserName);
+            if (user != null)
+            {
+                user.RoleId = roleId;
+                _context.SaveChanges();
+                return user;
+            }
+
+            return user;
+
+        }
     }
 }
