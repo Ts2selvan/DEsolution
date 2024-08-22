@@ -1,4 +1,5 @@
-﻿using DEApp.Models.DTOs;
+﻿using DEApp.Models;
+using DEApp.Models.DTOs;
 
 namespace DEApp.Services
 {
@@ -6,6 +7,7 @@ namespace DEApp.Services
     {
         List<ApplicationGridDTO> GetApplicantsByVendorId(int vendorId);
         List<ApplicationGridDTO> GetAllApplicants();
+        List<Applicant> GetAllApplicantsOnly();
         public ApplicantDTO UpdateApplicationByUsingVendorId(int applicantId, int vendorId);
         public List<ApplicantDTO> GetAllApplicantByCreatedPersonData();
         public ApplicantDTO GetApplicantById(int ApplicantId);

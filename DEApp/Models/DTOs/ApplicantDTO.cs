@@ -4,7 +4,7 @@
     {
         public int ApplicantId { get; set; }
 
-        public int VendorId { get; set; }
+        public int? VendorId { get; set; }
 
         public string? Applicant1 { get; set; }
 
@@ -33,5 +33,11 @@
         public int? Pincode { get; set; }
 
         public string? Country { get; set; }
+        public decimal? LoanAmount { get; set; }
+        public int? LoanTerm { get; set; }
+
+        public decimal? InterestRate { get; set; }
+
+        public decimal? MonthlyPayment { get; set; }
     }
 }

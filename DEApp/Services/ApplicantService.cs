@@ -2,6 +2,7 @@
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection;
+using DEApp.Interfaces;
 using DEApp.Models;
 using DEApp.Models.DTOs;
 using DEApp.Repositories;
@@ -12,10 +13,12 @@ namespace DEApp.Services
     public class ApplicantService : IApplicantService
     {
         private readonly IApplicantRepository _applicantRepository;
+        private readonly ILoanRepository<int, Loan> _loanRepository;
 
-        public ApplicantService(IApplicantRepository applicantRepository)
+        public ApplicantService(IApplicantRepository applicantRepository, ILoanRepository<int, Loan> loanRepository)
         {
             _applicantRepository = applicantRepository;
+            _loanRepository = loanRepository;
         }
 
 
@@ -61,6 +64,7 @@ namespace DEApp.Services
             var applicant = new Applicant
             {
                 ApplicantId = applicantDTO.ApplicantId,
+                VendorId=applicantDTO.VendorId,
                 Applicant1 = applicantDTO.Applicant1,
                 Email = applicantDTO.Email,
                 Phone = applicantDTO.Phone,
@@ -78,9 +82,27 @@ namespace DEApp.Services
 
             };
             _applicantRepository.Add(applicant);
+            int AppId = _applicantRepository.getLastAppId();
+            var loan = new Loan
+            {
+                ApplicantId = AppId,
+                LoanAmount = applicantDTO.LoanAmount,
+                LoanTerm = applicantDTO.LoanTerm,
+                LoanType = "Vechicle Loan",
+                LoanDescription = "Applied for Car loan",
+                InterestRate = applicantDTO.InterestRate,
+                MonthlyPayment = applicantDTO.MonthlyPayment,
+                ApplicantDate = DateTime.Now,
+                LastUpdate = DateTime.Now,
+                Status = "Pending",
+                MaxLoanAmount = 2000000
+
+            };
+            _loanRepository.Add(loan);
             return new ApplicantDTO
             {
                 ApplicantId = applicant.ApplicantId,
+                VendorId=applicant.VendorId,
                 Applicant1 = applicant.Applicant1,
                 Email = applicant.Email,
                 Phone = applicant.Phone,
@@ -333,7 +355,10 @@ namespace DEApp.Services
             }).ToList();
         }
 
-
-
+        public List<Applicant> GetAllApplicantsOnly()
+        {
+            var applicants = _applicantRepository.GetAllApplicantsOnly();
+            return applicants;
+        }
     }
 }

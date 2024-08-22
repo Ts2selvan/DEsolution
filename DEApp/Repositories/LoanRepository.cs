@@ -18,6 +18,8 @@ namespace DEApp.Repositories
             return item;
         }
 
+      
+
         public Loan Delete(int key)
         {
             var Loan = Get(key);

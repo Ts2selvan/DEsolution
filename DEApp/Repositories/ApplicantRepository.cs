@@ -69,6 +69,10 @@ namespace DEApp.Repositories
                 .Include(a => a.Loans)   
                 .ToList();
         }
+        public List<Applicant> GetAllApplicantsOnly()
+        {
+            return _context.Applicants.ToList();
+        }
         public IEnumerable<Applicant> GetApplicantsByGridUsingIDandName(int applicantId, string applicant1)
         {
             return _context.Applicants
@@ -96,5 +100,13 @@ namespace DEApp.Repositories
                 .ToList();
         }
 
+        public int getLastAppId()
+        {
+            var lastApplicant = _context.Applicants
+           .OrderByDescending(a => a.ApplicantId) 
+           .FirstOrDefault();
+
+            return lastApplicant.ApplicantId;
+        }
     }
 }

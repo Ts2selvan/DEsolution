@@ -103,6 +103,16 @@ namespace DEApp.Controllers
             return Ok(applicants);
         }
 
+        [HttpGet("GetAllApplicantsOnly")]
+        public ActionResult<List<ApplicationGridDTO>> GetAllApplicantsOnly()
+        {
+            var applicants = _applicantService.GetAllApplicantsOnly();
+            if (applicants == null || applicants.Count == 0)
+            {
+                return NoContent();
+            }
+            return Ok(applicants);
+        }
 
         [HttpPut("UpdateApplication/{applicantId}/{vendorId}")]
         public IActionResult UpdateApplicationByUsingVendorId(int applicantId, int vendorId)
