@@ -122,6 +122,7 @@ namespace DEApp.Services
 
         public ApplicantDTO DeleteApplicantById(int applicantId)
         {
+            var loan=_loanRepository.Delete(applicantId);
             var applicant = _applicantRepository.Get(applicantId);
 
             if (applicant == null)

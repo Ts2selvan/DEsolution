@@ -22,12 +22,16 @@ namespace DEApp.Repositories
 
         public Loan Delete(int key)
         {
-            var Loan = Get(key);
-            if (Loan != null)
+            var loans = GetLoanByAppId(key).ToList();
+           
+            if (loans.Any()) 
             {
-                _context.Loans.Remove(Loan);
+                foreach (var loan in loans)
+                {
+                    _context.Loans.Remove(loan); 
+                }
                 _context.SaveChanges();
-                return Loan;
+                return null;
             }
             return null;
         }
@@ -36,6 +40,11 @@ namespace DEApp.Repositories
         {
             var Loan = _context.Loans.FirstOrDefault(l => l.LoanId == key);
             return Loan;
+        }
+        public IEnumerable<Loan> GetLoanByAppId(int key)
+        {
+            return _context.Loans.Where(l => l.ApplicantId == key).ToList();
+             
         }
 
         public List<Loan> GetAll()
@@ -49,5 +58,7 @@ namespace DEApp.Repositories
             _context.SaveChanges();
             return item;
         }
+
+      
     }
 }
